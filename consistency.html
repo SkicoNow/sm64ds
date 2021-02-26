@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Attempt and Consistency Tracker</title>
 	<style>
@@ -21,15 +20,14 @@
 		}
 	</style>
 </head>
-
 <body>
 	<!--
-		Rupa's program has these features that I haven't implemented yet:
-		Undo button (I don't know how to make this)
-		Redo button (I don't know how to make this)
-		"Edit value" button (I could probably change the <div> tags for #successCount, #failCount, and #consistency to <input type="number"> to account for this)
-		"Always on top" checkbox (I'm not sure how hard it would be to create this or if it would even be useful)
-		-->
+	Rupa's program has these features that I haven't implemented yet:
+	Undo button (I don't know how to make this)
+	Redo button (I don't know how to make this)
+	"Edit value" button (I could probably change the <div> tags for #successCount, #failCount, and #consistency to <input type="number"> to account for this)
+	"Always on top" checkbox (I'm not sure how hard it would be to create this or if it would even be useful)
+	-->
 	<h1>Attempt and Consistency Tracker</h1>
 	<p style="width:400px">You can switch between the Successes and Fails counters by pressing Tab and Shift + Tab, or
 		you can just click on them. You can also increase and decrease their values by using the Up/Down arrow keys or
@@ -76,7 +74,7 @@
 		updateScreen();
 
 		function el(ID) {
-			return document.getElementById(ID)
+			return document.getElementById(ID);
 		}
 
 		function success() {
@@ -129,5 +127,4 @@
 		}
 	</script>
 </body>
-
 </html>
