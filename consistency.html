@@ -121,8 +121,8 @@
 			}
 			function updateScreen()
 			{
-				successCount.innerHTML = successCount;
-				failCount.innerHTML = failCount;
+				document.getElementById("successCount").value = successCount;
+				document.getElementById("failCount").value = failCount;
 				if (isNaN(consistency))
 				{
 					consistency = 0; // this prevents <span id="consistency"> from displaying "0/0 (NaN%)"
