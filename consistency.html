@@ -26,7 +26,7 @@
 		"Always on top" checkbox (I'm not sure how hard it would be to create this or if it would even be useful)
 		-->
 		<h1>Attempt and Consistency Tracker</h1>
-		<p style="width:400px">You can switch between the Successes and Fails counters by pressing Tab and Shift + Tab, or you can just click on them. You can also increase and decrease their values by using the Up/Down arrow keys. You can reset your results by manually setting each value to 0 or refreshing the page.</p>
+		<p style="width:400px">You can switch between the Successes and Fails counters by pressing Tab and Shift + Tab, or you can just click on them. You can also increase and decrease their values by using the Up/Down arrow keys.</p>
 		<span style="font-size:24px">Successes:</span>
 		<br>
 		<input type="number" id="successCount" value="0" min="0" style="background-color:#D0FFD0" onchange="success()">
@@ -49,9 +49,9 @@
 		<!--
 		<input style="background-color:#D0FFD0" type="button" id="successButton" value="Success" onclick="success()">
 		<input style="background-color:#FFD0D0" type="button" id="failButton" value="Fail" onclick="fail()">
+		-->
 		<input type="button" id="resetButton" value="Reset" onclick="resetResultsHTML()">
 		<span>(or just refresh the page)</span>
-		-->
 		<p id="resetConfirm" style="display:none">Are you sure you want to reset your results?</p>
 		<input style="display:none" type="button" id="resetYes" value="Yes" onclick="resetYes()">
 		<input style="display:none" type="button" id="resetNo" value="No" onclick="resetNo()">
