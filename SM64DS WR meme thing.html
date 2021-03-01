@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SM64DS World Record Meme Thing</title>
+	</head>
+	<body>
+		<h1>SM64DS World Record Meme Thing</h1>
+		<p>I'll be sure to update the code for this page as the WR for each category gets beaten.</p>
+		<span>Select a category:</span>
+		<select id="record">
+			<option value="Any%">Any%</option>
+			<option value="8 Star">8 Star</option>
+			<option value="50 Star">50 Star</option>
+			<option value="80 Star">80 Star</option>
+			<option value="150 Star">150 Star</option>
+			<option value="Beat Bowser in the Dark World">Beat Bowser in the Dark World</option>
+			<option value="Beat Bowser in the Fire Sea">Beat Bowser in the Fire Sea</option>
+			<option value="All Characters">All Characters</option>
+		</select>
+		<br>
+		<br>
+		<input type="button" value="Print Copypasta" onclick="printCopypasta()">
+		<br>
+		<br>
+		<textarea id="copypasta" readonly="readonly" rows="15" cols="50" onclick="this.select()"></textarea>
+		<p>Created by SkicoNow, inspired by <a href="https://www.reddit.com/r/memes/comments/7zeuql/how_many_shreks_old_are_you/" target="_blank">this Reddit thread</a></p>
+		<!--
+		<p id="copypasta1"></p>
+		<p id="copypasta2" style="display:none">Examples:</p>
+		<p id="copypasta3"></p>
+		<p id="copypasta4"></p>
+		<p id="copypasta5"></p>
+		-->
+		<script>
+			var WRAny = 598;        // 9:58    by Rupa
+			var WR8 = 904;          // 15:04   by Rupa
+			var WR50 = 2462;        // 41:02   by PolishedGrain
+			var WR80 = 3869;        // 1:04:29 by Rupa
+			var WR150 = 9228;       // 2:33:48 by PolishedGrain
+			var WRBeatBitDW = 805;  // 13:25   by Rupa
+			var WRBeatBitFS = 1628; // 27:08   by Rupa
+			var WRAllChar = 1397;   // 23:17   by Rupa
+			/*
+			var copypasta1 = document.getElementById("copypasta1");
+			var copypasta3 = document.getElementById("copypasta3");
+			var copypasta4 = document.getElementById("copypasta4");
+			var copypasta5 = document.getElementById("copypasta5");
+			*/
+			var record;
+			var copypasta = document.getElementById("copypasta");
+			function printCopypasta()
+			{
+				record = document.getElementById("record").value;
+				// document.getElementById("copypasta2").setAttribute("style", "display:block");
+				if (record == "Any%")
+				{
+					copypasta.innerHTML = "I've started using the SM64DS " + record + " world record as a unit of time, where 1 SM64DS " + record + " world record = " + WRTimeConvert(WRAny) + " (the length of the world record)\n\nExamples:\n&quot;See you in a SM64DS " + record + " world record!&quot; (" + WRTimeConvert(WRAny) + ")\n\n&quot;Dinner will be ready in half a SM64DS " + record + " world record.&quot; (" + WRTimeConvert(WRAny / 2) + ")\n\n&quot;My birthday is only " + (2629800 / WRAny).toFixed(3) + " SM64DS " + record + " world records away!&quot; (1 month)";
+					/*
+					copypasta1.innerHTML = "I've started using the SM64DS " + record + " world record as a unit of time, where one " + record + " world record = " + WRTimeConvert(WRAny) + " (the length of the world record)";
+					copypasta3.innerHTML = "&quot;See you in a SM64DS " + record + " world record!&quot; (" + WRTimeConvert(WRAny) + ")";
+					copypasta4.innerHTML = "&quot;Dinner will be ready in half a SM64DS " + record + " world record.&quot; (" + WRTimeConvert(WRAny / 2) + ")";
+					copypasta5.innerHTML = "&quot;My birthday is only " + (2629800 / WRAny) + " SM64DS " record + " world records away!&quot; (1 month)";
+					*/
+				}
+				else if (record == "8 Star")
+				{
+					copypasta.innerHTML = "I've started using the SM64DS " + record + " world record as a unit of time, where 1 SM64DS " + record + " world record = " + WRTimeConvert(WR8) + " (the length of the world record)\n\nExamples:\n&quot;See you in a SM64DS " + record + " world record!&quot; (" + WRTimeConvert(WR8) + ")\n\n&quot;Dinner will be ready in half a SM64DS " + record + " world record.&quot; (" + WRTimeConvert(WR8 / 2) + ")\n\n&quot;My birthday is only " + (2629800 / WR8).toFixed(3) + " SM64DS " + record + " world records away!&quot; (1 month)";
+				}
+				else if (record == "50 Star")
+				{
+					copypasta.innerHTML = "I've started using the SM64DS " + record + " world record as a unit of time, where 1 SM64DS " + record + " world record = " + WRTimeConvert(WR50) + " (the length of the world record)\n\nExamples:\n&quot;See you in a SM64DS " + record + " world record!&quot; (" + WRTimeConvert(WR50) + ")\n\n&quot;Dinner will be ready in half a SM64DS " + record + " world record.&quot; (" + WRTimeConvert(WR50 / 2) + ")\n\n&quot;My birthday is only " + (2629800 / WR50).toFixed(3) + " SM64DS " + record + " world records away!&quot; (1 month)";
+				}
+				else if (record == "80 Star")
+				{
+					copypasta.innerHTML = "I've started using the SM64DS " + record + " world record as a unit of time, where 1 SM64DS " + record + " world record = " + WRTimeConvert(WR80) + " (the length of the world record)\n\nExamples:\n&quot;See you in a SM64DS " + record + " world record!&quot; (" + WRTimeConvert(WR80) + ")\n\n&quot;Dinner will be ready in half a SM64DS " + record + " world record.&quot; (" + WRTimeConvert(WR80 / 2) + ")\n\n&quot;My birthday is only " + (2629800 / WR80).toFixed(3) + " SM64DS " + record + " world records away!&quot; (1 month)";
+				}
+				else if (record == "150 Star")
+				{
+					copypasta.innerHTML = "I've started using the SM64DS " + record + " world record as a unit of time, where 1 SM64DS " + record + " world record = " + WRTimeConvert(WR150) + " (the length of the world record)\n\nExamples:\n&quot;See you in a SM64DS " + record + " world record!&quot; (" + WRTimeConvert(WR150) + ")\n\n&quot;Dinner will be ready in half a SM64DS " + record + " world record.&quot; (" + WRTimeConvert(WR150 / 2) + ")\n\n&quot;My birthday is only " + (2629800 / WR150).toFixed(3) + " SM64DS " + record + " world records away!&quot; (1 month)";
+				}
+				else if (record == "Beat Bowser in the Dark World")
+				{
+					copypasta.innerHTML = "I've started using the SM64DS " + record + " world record as a unit of time, where 1 SM64DS " + record + " world record = " + WRTimeConvert(WRBeatBitDW) + " (the length of the world record)\n\nExamples:\n&quot;See you in a SM64DS " + record + " world record!&quot; (" + WRTimeConvert(WRBeatBitDW) + ")\n\n&quot;Dinner will be ready in half a SM64DS " + record + " world record.&quot; (" + WRTimeConvert(WRBeatBitDW / 2) + ")\n\n&quot;My birthday is only " + (2629800 / WRBeatBitDW).toFixed(3) + " SM64DS " + record + " world records away!&quot; (1 month)";
+				}
+				else if (record == "Beat Bowser in the Fire Sea")
+				{
+					copypasta.innerHTML = "I've started using the SM64DS " + record + " world record as a unit of time, where 1 SM64DS " + record + " world record = " + WRTimeConvert(WRBeatBitFS) + " (the length of the world record)\n\nExamples:\n&quot;See you in a SM64DS " + record + " world record!&quot; (" + WRTimeConvert(WRBeatBitFS) + ")\n\n&quot;Dinner will be ready in half a SM64DS " + record + " world record.&quot; (" + WRTimeConvert(WRBeatBitFS / 2) + ")\n\n&quot;My birthday is only " + (2629800 / WRBeatBitFS).toFixed(3) + " SM64DS " + record + " world records away!&quot; (1 month)";
+				}
+				else if (record == "All Characters")
+				{
+					copypasta.innerHTML = "I've started using the SM64DS " + record + " world record as a unit of time, where 1 SM64DS " + record + " world record = " + WRTimeConvert(WRAllChar) + " (the length of the world record)\n\nExamples:\n&quot;See you in a SM64DS " + record + " world record!&quot; (" + WRTimeConvert(WRAllChar) + ")\n\n&quot;Dinner will be ready in half a SM64DS " + record + " world record.&quot; (" + WRTimeConvert(WRAllChar / 2) + ")\n\n&quot;My birthday is only " + (2629800 / WRAllChar).toFixed(3) + " SM64DS " + record + " world records away!&quot; (1 month)";
+				}
+			}
+			function WRTimeConvert(WR)
+			{
+				var hours = Math.floor(WR / 3600);
+				var minutes = Math.floor(WR / 60);
+				var seconds = WR % 60;
+				if (WR >= 3600)
+				{
+					minutes %= 60;
+					if (minutes < 10 && seconds < 10)
+					{
+						return hours + "h0" + (minutes % 60) + "m0" + seconds + "s";
+					}
+					else if (minutes >= 10 && seconds < 10)
+					{
+						return hours + "h" + (minutes % 60) + "m0" + seconds + "s";
+					}
+					else if (minutes >= 10 && seconds >= 10)
+					{
+						return hours + "h" + (minutes % 60) + "m" + seconds + "s";
+					}
+					else if (minutes < 10 && seconds >= 10)
+					{
+						return hours + "h0" + (minutes % 60) + "m" + seconds + "s";
+					}
+				}
+				else
+				{
+					if (seconds < 10)
+					{
+						return minutes + "m0" + seconds + "s";
+					}
+					else
+					{
+						return minutes + "m" + seconds + "s";
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
