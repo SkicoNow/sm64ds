@@ -6,13 +6,11 @@
 		body {
 			font-family: arial;
 		}
-
 		#consistencyBox {
 			border: 2px solid black;
 			position: static;
 			width: 275px;
 		}
-
 		#successCount,
 		#failCount {
 			font-size: 32px;
@@ -26,11 +24,11 @@
 	"Always on top" checkbox (I'm not sure how hard it would be to create this or if it would even be useful)
 	-->
 	<h1>Attempt and Consistency Tracker</h1>
-	<p style="width:400px">You can switch between the Successes and Fails counters by pressing Tab and Shift + Tab, or
-		you can just click on them. You can also increase and decrease their values by using the Up/Down arrow keys.</p>
+	<p style="width:400px">You can switch between the Successes and Fails counters by pressing Tab and Shift + Tab, or you can just click on them. You can also increase and decrease their values by using the Up/Down arrow keys.</p>
 	<span style="font-size:24px">Successes:</span>
 	<br>
 	<input type="number" id="successCount" value="0" min="0" style="background-color:#D0FFD0" onchange="success()">
+	<b style="font-size:64px" onclick="successButtonINC()">+</b><b style="font-size:64px" onclick="successButtonDEC()">-</b>
 	<br>
 	<!-- <div style="background-color:#D0FFD0">
 			<span id="successCount" style="font-size:32px"></span>
@@ -38,6 +36,7 @@
 	<span style="font-size:24px">Fails:</span>
 	<br>
 	<input type="number" id="failCount" value="0" min="0" style="background-color:#FFD0D0" onchange="fail()">
+	<b style="font-size:64px" onclick="failButtonINC()">+</b><b style="font-size:64px" onclick="failButtonDEC()">-</b>
 	<br>
 	<!-- <div style="background-color:#FFD0D0">
 			<span id="failCount" style="font-size:32px"></span>
@@ -47,8 +46,8 @@
 		<span id="consistency" style="font-size:32px"></span>
 	</div>
 	<br>
-	<input style="background-color:#D0FFD0" type="button" id="successButton" value="Success" onclick="successButton()">
-	<input style="background-color:#FFD0D0" type="button" id="failButton" value="Fail" onclick="failButton()">
+	<input style="background-color:#D0FFD0" type="button" id="successButton" value="Success" onclick="successButtonINC()">
+	<input style="background-color:#FFD0D0" type="button" id="failButton" value="Fail" onclick="failButtonINC()">
 	<input style="background-color:#FFFFFF" type="button" id="resetButton" value="Reset" onclick="resetResultsHTML()">
 	<span>(or just refresh the page)</span>
 	<div id="reset" style="display: none;">
@@ -56,47 +55,58 @@
 		<input type="button" id="resetYes" value="Yes" onclick="resetYes()">
 		<input type="button" id="resetNo" value="No" onclick="resetNo()">
 	</div>
-	<p>Created by SkicoNow, inspired by Rupa and <a href="https://www.twitch.tv/rupa5364" target="_blank">his Twitch
-			streams</a></p>
-	<p>Thanks to <a href="https://jisho.org/" target="_blank">jisho.org</a> and <a href="https://translate.google.com/"
-			target="_blank">Google Translate</a> for helping me identify and translate the Japanese characters in Rupa's
-		program</p>
+	<p>Created by SkicoNow, inspired by Rupa and <a href="https://www.twitch.tv/rupa5364" target="_blank">his Twitch streams</a></p>
+	<p>Thanks to <a href="https://jisho.org/" target="_blank">jisho.org</a> and <a href="https://translate.google.com/" target="_blank">Google Translate</a> for helping me identify and translate the Japanese characters in Rupa's program</p>
 	<script>
 		var successCount = 0;
 		var failCount = 0;
 		var attemptCount = parseInt(successCount) + parseInt(failCount);
 		var consistency = 0;
-
 		updateScreen();
 
-		function el(ID) {
+		function el(ID)
+		{
 			return document.getElementById(ID);
 		}
-
-		function success() {
+		function success()
+		{
 			successCount = el("successCount").value;
 			updateScreen();
 		}
-		function fail() {
+		function fail()
+		{
 			failCount = el("failCount").value;
 			updateScreen();
 		}
-		function successButton() {
+		function successButtonINC()
+		{
 			successCount++;
 			updateScreen();
 		}
-		function failButton() {
+		function successButtonDEC()
+		{
+			successCount--;
+			updateScreen();
+		}
+		function failButtonINC()
+		{
 			failCount++;
 			updateScreen();
 		}
-
-		function resetResultsHTML() {
+		function failButtonDEC()
+		{
+			failCount--;
+			updateScreen();
+		}
+		function resetResultsHTML()
+		{
 			el("successCount").setAttribute("disabled", "true");
 			el("failCount").setAttribute("disabled", "true");
 			el("resetButton").setAttribute("disabled", "true");
 			el("reset").setAttribute("style", "display:block");
 		}
-		function resetYes() {
+		function resetYes()
+		{
 			successCount = 0;
 			failCount = 0;
 			attemptCount = 0;
@@ -104,19 +114,21 @@
 			updateScreen();
 			resetNo();
 		}
-		function resetNo() {
+		function resetNo()
+		{
 			el("successCount").removeAttribute("disabled");
 			el("failCount").removeAttribute("disabled");
 			el("resetButton").removeAttribute("disabled");
 			el("reset").setAttribute("style", "display:none");
 		}
-		
-		function updateScreen() {
+		function updateScreen()
+		{
 			attemptCount = parseInt(successCount) + parseInt(failCount);
 			consistency = (successCount / attemptCount) * 100;
 			el("successCount").value = successCount;
 			el("failCount").value = failCount;
-			if (isNaN(consistency)) {
+			if (isNaN(consistency))
+			{
 				consistency = 0; // this prevents <span id="consistency"> from displaying "0/0 (NaN%)"
 			}
 			el("consistency").innerHTML = successCount + "/" + attemptCount + " (" + consistency.toFixed(3) + "%)";
