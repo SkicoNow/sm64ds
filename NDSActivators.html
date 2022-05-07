@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        table, tr, td {
+            border: 1px solid black;
+        }
+        
+        #GBATable td {
+            background-color: rgb(255, 150, 150);
+        }
+
+        #NDSTable td {
+            background-color: rgb(150, 150, 255);
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>GBA:&nbsp;<code>94000130 XXXX0000</code></li>
+        <li>NDS:&nbsp;<code>92FFFFA8 XXXX0000</code>&nbsp;(emulator)</li>
+        <li>NDS:&nbsp;<code>927FFFA8 XXXX0000</code>&nbsp;(real DS)</li>
+    </ul>
+    <table id="GBATable">
+        <tr>
+            <td id="A" onclick="thing(A)">A</td>
+            <td id="B" onclick="thing(B)">B</td>
+            <td id="Select" onclick="thing(Select)">Select</td>
+            <td id="Start" onclick="thing(Start)">Start</td>
+            <td id="Left" onclick="thing(Left)">Left</td>
+            <td id="Right" onclick="thing(Right)">Right</td>
+            <td id="Up" onclick="thing(Up)">Up</td>
+            <td id="Down" onclick="thing(Down)">Down</td>
+            <td id="R" onclick="thing(R)">R</td>
+            <td id="L" onclick="thing(L)">L</td>
+        </tr>
+    </table>
+    <table id="NDSTable">
+        <tr>
+            <td id="X" onclick="thing(X)">X</td>
+            <td id="Y" onclick="thing(Y)">Y</td>
+        </tr>
+    </table>
+    <p>Click either activator textarea to copy its value.</p>
+    <p>Button:</p>
+    <textarea id="texts" readonly></textarea>
+    <br>
+    <p>Combo:</p>
+    <textarea id="textArray" readonly></textarea>
+    <br>
+    <p>Activator (GBA):</p>
+    <textarea id="bitsGBA" onclick="copyStuff('bitsGBA')" readonly></textarea>
+    <br>
+    <p>Activator (NDS):</p>
+    <textarea id="bitsNDS" onclick="copyStuff('bitsNDS')" readonly></textarea>
+    <br>
+    <input type="button" value="Add" onclick="add()">
+    <input type="button" value="Clear" onclick="clearStuff()">
+    <script>
+        const A = {string: "A", bit: 65534}; // 0xFFFE
+        const B = {string: "B", bit: 65533}; // 0xFFFD
+        const Select = {string: "Select", bit: 65531}; // 0xFFFB
+        const Start = {string: "Start", bit: 65527}; // 0xFFF7
+        const Left = {string: "Left", bit: 65519}; // 0xFFEF
+        const Right = {string: "Right", bit: 65503}; // 0xFFDF
+        const Up = {string: "Up", bit: 65471}; // 0xFFBF
+        const Down = {string: "Down", bit: 65407}; // 0xFF7F
+        const R = {string: "R", bit: 65279}; // 0xFEFF
+        const L = {string: "L", bit: 65023}; // 0xFDFF
+        const X = {string: "X", bit: 64511}; // 0xFBFF
+        const Y = {string: "Y", bit: 63487}; // 0xF7FF
+        var text = [];
+        var bitsGBA = [];
+        var bitsNDS = [];
+        //var ANDResult;
+
+        function thing(button)
+        {
+            document.getElementById("texts").innerHTML = button.string;
+            if (button.string != "X" && button.string != "Y")
+            {
+                document.getElementById("bitsGBA").innerHTML = button.bit.toString(16).toUpperCase();
+            }
+            else
+            {
+                document.getElementById("bitsNDS").innerHTML = button.bit.toString(16).toUpperCase();
+            }
+        }
+        
+        function add()
+        {
+            if (document.getElementById("texts").innerHTML != "")
+            {
+                text.push(document.getElementById("texts").innerHTML);
+                document.getElementById("textArray").innerHTML = text;
+                for (var i = 0; i < text.length; i++)
+                {
+                    if (text[i] != "X" && text[i] != "Y")
+                    {
+                        bitsGBA.push(parseInt(document.getElementById("bitsGBA").innerHTML, 16));
+                        if (bitsGBA.length == 2)
+                        {
+                            //ANDResult = bitsGBA[0] & bitsGBA[1];
+                            //console.log(ANDResult);
+                            //console.log(bitsGBA);
+                            bitsGBA.push(bitsGBA[0] & bitsGBA[1]);
+                            //console.log(bitsGBA);
+                            bitsGBA.splice(0, 1);
+                            bitsGBA.splice(0, 1);
+                            document.getElementById("bitsGBA").innerHTML = bitsGBA[0].toString(16).toUpperCase();
+                            //console.log(bitsGBA);
+                            //console.log(bitsGBA[0].toString(16).toUpperCase());
+                        }
+                    }
+                    else
+                    {
+                        bitsNDS.push(parseInt(document.getElementById("bitsNDS").innerHTML, 16));
+                        if (bitsNDS.length == 2)
+                        {
+                            //ANDResult = bitsNDS[0] & bitsNDS[1];
+                            //console.log(ANDResult);
+                            //console.log(bitsNDS);
+                            bitsNDS.push(bitsNDS[0] & bitsNDS[1]);
+                            //console.log(bitsNDS);
+                            bitsNDS.splice(0, 1);
+                            bitsNDS.splice(0, 1);
+                            document.getElementById("bitsNDS").innerHTML = bitsNDS[0].toString(16).toUpperCase();
+                            //console.log(bitsNDS);
+                            //console.log(bitsNDS[0].toString(16).toUpperCase());
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        function compute()
+        {
+            document.getElementById("bitsGBA").innerHTML = "94000130 00000000";
+            document.getElementById("bitsGBA").innerHTML = document.getElementById("bitsGBA").innerHTML.substr(0, 9) + button.bit.toString(16).toUpperCase() + "0000";
+        }
+        */
+        function copyStuff(ID)
+        {
+            document.getElementById(ID).select();
+            navigator.clipboard.writeText(document.getElementById(ID).innerHTML);
+        }
+        
+        function clearStuff()
+        {
+            document.getElementById("texts").innerHTML = "";
+            document.getElementById("textArray").innerHTML = "";
+            document.getElementById("bitsGBA").innerHTML = "";
+            document.getElementById("bitsNDS").innerHTML = "";
+            for (var i = 0; i < text.length; i++)
+            {
+                text.pop();
+            }
+
+            for (var i2 = 0; i2 < bitsGBA.length; i2++)
+            {
+                bitsGBA.pop();
+            }
+
+            for (var i3 = 0; i3 < bitsNDS.length; i3++)
+            {
+                bitsNDS.pop();
+            }
+        }
+        /*
+        function main(button)
+        {
+            var ANDResult;
+            var i;
+            text.push(button.string);
+            console.log(text);
+            bits.push(button.bit);
+            bitsString.push(button.bit.toString(16).toUpperCase());
+            if (bits.length >= 2)
+            {
+                for (i = 0; i < bits.length; i++)
+                {
+                    ANDResult = bits[i] & bits[i + 1];
+                    console.log("AND = " + ANDResult.toString(16));
+                    console.log("i = " + i);
+                }
+            }
+            document.getElementById("texts").innerText = button.string;
+            document.getElementById("bits").innerText = button.bit.toString(16).toUpperCase();
+        }
+        */
+    </script>
+</body>
+</html>
