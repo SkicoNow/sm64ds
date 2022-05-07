@@ -155,16 +155,28 @@
             for (var i = 0; i < text.length; i++)
             {
                 text.pop();
+                if (text.length == 1)
+                {
+                    text.shift();
+                }
             }
 
             for (var i2 = 0; i2 < bitsGBA.length; i2++)
             {
                 bitsGBA.pop();
+                if (bitsGBA.length == 1)
+                {
+                    bitsGBA.shift();
+                }
             }
 
             for (var i3 = 0; i3 < bitsNDS.length; i3++)
             {
                 bitsNDS.pop();
+                if (bitsNDS.length == 1)
+                {
+                    bitsNDS.shift();
+                }
             }
         }
         /*
