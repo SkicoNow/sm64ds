@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>GBA/NDS Button Activators</title>
+    <title>Document</title>
     <style>
         table, tr, td {
             border: 1px solid black;
+        }
+
+        span {
+            display: block;
         }
         
         #GBATable td {
             background-color: rgb(255, 150, 150);
         }
-
+        
         #NDSTable td {
             background-color: rgb(150, 150, 255);
         }
-    </style>
+        </style>
 </head>
 <body>
-    <h1>GBA/NDS Button Activators</h1>
     <ul>
         <li>GBA:&nbsp;<code>94000130 XXXX0000</code></li>
         <li>NDS:&nbsp;<code>92FFFFA8 XXXX0000</code>&nbsp;(emulator)</li>
         <li>NDS:&nbsp;<code>927FFFA8 XXXX0000</code>&nbsp;(real DS)</li>
     </ul>
+    <span>Click on a button from either the&nbsp;<span style="display:inline; background-color: rgb(255, 150, 150);">GBA</span>&nbsp;or&nbsp;<span style="display:inline; background-color: rgb(150, 150, 255);">NDS</span>&nbsp;table. It will appear in the&nbsp;<b>Button:</b>&nbsp;textarea.</span>
+    <span>Click the&nbsp;<b>Add</b>&nbsp;button to add it to the current combo, which appears in the&nbsp;<b>Combo:</b>&nbsp;textarea.</span>
+    <span>Click either&nbsp;<b>Activator</b>&nbsp;textarea to copy both its activator address (e.g.&nbsp;<code>94000130</code>) and value.</span>
+    <span>Click the&nbsp;<b>Clear</b>&nbsp;button to clear the current combo.</span>
+    <br>
     <table id="GBATable">
         <tr>
             <td id="A" onclick="thing(A)">A</td>
@@ -43,17 +51,17 @@
             <td id="Y" onclick="thing(Y)">Y</td>
         </tr>
     </table>
-    <p>Click either activator textarea to copy its value.</p>
-    <p>Button:</p>
+    <br>
+    <span>Button:</span>
     <textarea id="texts" readonly></textarea>
     <br>
-    <p>Combo:</p>
+    <span>Combo:</span>
     <textarea id="textArray" readonly></textarea>
     <br>
-    <p>Activator (GBA):</p>
+    <span>Activator (GBA):</span>
     <textarea id="bitsGBA" onclick="copyStuff('bitsGBA')" readonly></textarea>
     <br>
-    <p>Activator (NDS):</p>
+    <span>Activator (NDS):</span>
     <textarea id="bitsNDS" onclick="copyStuff('bitsNDS')" readonly></textarea>
     <br>
     <input type="button" value="Add" onclick="add()">
@@ -144,7 +152,14 @@
         function copyStuff(ID)
         {
             document.getElementById(ID).select();
-            navigator.clipboard.writeText(document.getElementById(ID).innerHTML);
+            if (ID == "bitsGBA")
+            {
+                navigator.clipboard.writeText("94000130 " + document.getElementById(ID).innerHTML + "0000");
+            }
+            else if (ID == "bitsNDS")
+            {
+                navigator.clipboard.writeText("92FFFFA8 " + document.getElementById(ID).innerHTML + "0000 | 927FFFA8 " + document.getElementById(ID).innerHTML + "0000");
+            }
         }
         
         function clearStuff()
@@ -161,7 +176,6 @@
                     text.shift();
                 }
             }
-
             for (var i2 = 0; i2 < bitsGBA.length; i2++)
             {
                 bitsGBA.pop();
@@ -170,7 +184,6 @@
                     bitsGBA.shift();
                 }
             }
-
             for (var i3 = 0; i3 < bitsNDS.length; i3++)
             {
                 bitsNDS.pop();
